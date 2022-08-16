@@ -12,4 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .truerange import truerange
+from .truerange import atr
+from .rma import rma
 from .ash import ash
+from .supertrend import supertrend
