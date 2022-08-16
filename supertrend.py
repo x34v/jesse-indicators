@@ -11,12 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from dis import dis
 import talib
 import numpy as np
 from typing import Union
 
-from custom_indicators import atr, truerange
+from .truerange import atr, truerange
 from jesse.indicators import sma
 from jesse.helpers import get_candle_source, slice_candles, np_shift, np_ffill
 
