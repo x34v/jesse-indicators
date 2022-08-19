@@ -25,7 +25,17 @@ from jesse.indicators import sma, ema, alma, wma, smma, hma
 
 def ash(candles: np.ndarray, evaluation_period: int = 9, smoothing_period: int = 3, method = "RSI", source_type="close", ma_type = "EMA", sigma: float = 6.0, distribution_offset: float = 0.85, sequential = False) -> Union[float, np.ndarray]:
     """
-    Absolute Strength Histogram v2 
+    Absolute Strength Histogram v2.
+
+    Returns three values: the bulls strength, the bears strength and the trend strength.
+    The trend strength is an integer having the following possible values:
+    
+    * -2: Strong downtrend
+    * -1: Light downtrend
+    *  0: No trend
+    *  1: Light uptrend
+    *  2: Strong uptrend
+    
     :param candles: np.ndarray
     :param evaluation_period: int - default: 9
     :param smoothing_period: int - default: 3
@@ -49,18 +59,18 @@ def ash(candles: np.ndarray, evaluation_period: int = 9, smoothing_period: int =
 
     difference = abs(smth_bulls - smth_bears)
 
-    trend_strength = "NEUTRAL"
+    trend_strength = 0
 
     if difference[-1] > smth_bulls[-1]:
         if smth_bears[-1] < smth_bears[-2]:
-            trend_strength = "LIGHT_DOWNTREND"
+            trend_strength = -1 # LIGHT_DOWNTREND
         else:
-            trend_strength = "STRONG_DOWNTREND"
+            trend_strength = -2 # STRONG_DOWNTREND
     elif difference[-1] > smth_bears[-1]:
         if smth_bulls[-1] < smth_bulls[-2]:
-            trend_strength = "LIGHT_UPTREND"
+            trend_strength = 1 # LIGHT_UPTREND
         else:
-            trend_strength = "STRONG_UPTREND"
+            trend_strength = 2 # STRONG_UPTREND
 
     if sequential:
         return smth_bulls, smth_bears, trend_strength
