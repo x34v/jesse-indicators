@@ -58,9 +58,9 @@ def supertrend(candles: np.ndarray, period: int = 21, multiplier: float = 3.0, s
             up1[i] = st_up[i-1]
             dn1[i] = st_dn[i-1]
 
-            if trend[i-1] == -1 and src[i] > dn1[i]:
+            if trend[i-1] == -1 and close[i] > dn1[i]:
                 trend[i] = 1
-            elif trend[i-1] == 1 and src[i] < up1[i]:
+            elif trend[i-1] == 1 and close[i] < up1[i]:
                 trend[i] = -1
             else:
                 trend[i] = trend[i-1]
